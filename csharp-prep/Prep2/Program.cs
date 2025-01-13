@@ -9,8 +9,8 @@ class Program
         int pgrade = int.Parse(input);
 
         string letter = "";
-        string minus = "-";
-        string plus = "+";
+        // string minus = "-";
+        // string plus = "+";
             
         if (pgrade >= 90)
         {
