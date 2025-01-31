@@ -7,7 +7,7 @@ public class Program
     {
         Journal journal = new Journal();
         PromptGenerator promptGenerator = new PromptGenerator();
-        string fileName = "journal.txt";
+        string fileName = "journal.json";
 
         var menuActions = new Dictionary<string, Action>
         {
