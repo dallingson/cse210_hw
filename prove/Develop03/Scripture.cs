@@ -16,20 +16,25 @@ class Scripture
 
     public void HideWords()
     {
-        // Determine how many words to hide (at least one)
-        int wordsToHide = Math.Max(1, _words.Count(w => !w.IsHidden()) / 4);
-
         // Get a list of visible words
         List<Word> visibleWords = _words.Where(w => !w.IsHidden()).ToList();
 
+        // Always hide at least one word, even when only one remains
+        int wordsToHide = Math.Max(1, visibleWords.Count / 4);
+        
+        // Ensure that if only one word remains, it gets hidden
+        wordsToHide = Math.Min(wordsToHide, visibleWords.Count);
+
         // Shuffle and hide random words
-        for (int i = 0; i < wordsToHide && visibleWords.Count > 0; i++)
+        for (int i = 0; i < wordsToHide; i++)
         {
             int index = _random.Next(visibleWords.Count);
             visibleWords[index].HideWord();
             visibleWords.RemoveAt(index);
         }
     }
+
+
 
     public string GetRenderedText()
     {
