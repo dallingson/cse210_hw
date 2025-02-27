@@ -6,44 +6,78 @@ public class BreathingActivity : Activity
     {
     }
 
-    public void startBreathing()
+     protected override void doActivity()
     {
-        displayStartingMessage();
-
         int timeElapsed = 0;
         while (timeElapsed < _duration)
         {
-            Console.Write("Breathe in... ");
-            for (int i = 4; i > 0; i--)
-            {
-                Console.Write(i + " ");
-                Thread.Sleep(1000);
-            }
-            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine("Square Breathing:");
 
-            Console.Write("Breathe out... ");
-            for (int i = 6; i > 0; i--)
-            {
-                Console.Write(i + " ");
-                Thread.Sleep(1000);
-            }
-            Console.WriteLine();
+            squareBreathingAnimation(4);  // 4 seconds for each side of the square
 
-            timeElapsed += 10;
+            timeElapsed += 16;  // 4 sides × 4 seconds each
+            Console.Clear();
+        }
+    }
+
+    // Square breathing animation method
+    private void squareBreathingAnimation(int sideDuration)
+    {
+        int startX = 5;
+        int startY = 4;
+        int squareSize = 10;
+
+        Console.Clear(); //clear the console beforehand
+
+        // Inhale (Top Side)
+        Console.SetCursorPosition(0, 0);
+        Console.Write("Inhale...");
+        for (int i = 0; i < squareSize; i++)
+        {
+            Console.SetCursorPosition(startX + i, startY);
+            Console.Write("▬");
+            Thread.Sleep(sideDuration * 100);
         }
 
-        displayEndingMessage();
-    
+        // Hold (Right Side)
+        Console.SetCursorPosition(0, 0);
+        Console.Write("Hold...   ");
+        for (int i = 1; i < squareSize / 2; i++)
+        {
+            Console.SetCursorPosition(startX + squareSize - 1, startY + i);
+            Console.Write("|");
+            Thread.Sleep(sideDuration * 250);
+        }
+
+        // Exhale (Bottom Side)
+        Console.SetCursorPosition(0, 0);
+        Console.Write("Exhale...");
+        for (int i = squareSize - 1; i >= 0; i--)
+        {
+            Console.SetCursorPosition(startX + i, startY + squareSize / 2);
+            Console.Write("▬");
+            Thread.Sleep(sideDuration * 100);
+        }
+
+        // Hold (Left Side)
+        Console.SetCursorPosition(0, 0);
+        Console.Write("Hold...   ");
+        for (int i = squareSize / 2 - 1; i > 0; i--)
+        {
+            Console.SetCursorPosition(startX, startY + i);
+            Console.Write("|");
+            Thread.Sleep(sideDuration * 250);
+        }
+
+        // Clear prompt text after the cycle
+        Console.SetCursorPosition(0, 0);
+        Console.Write("             ");
     }
 
     public void alternateAnimation()
     {
     }
-
-    public override void start()
-{
-    startBreathing();
-}
 
 }
 

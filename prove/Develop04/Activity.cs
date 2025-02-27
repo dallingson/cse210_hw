@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-public class Activity
+public abstract class Activity
 {
     protected int _duration;
     protected string _description;
@@ -26,7 +26,7 @@ public class Activity
 
     public void displayEndingMessage()
     {
-        Console.WriteLine(" ");\
+        Console.WriteLine(" ");
         Console.WriteLine("Good job! You have completed the activity.");
         Console.WriteLine($"You spent {_duration} seconds on this activity.");
         Console.WriteLine(" ");
@@ -58,11 +58,16 @@ public class Activity
 
     public void displayPrompt()
     {
-        Console.WriteLine("DipslayPrompt");
+        Console.WriteLine("DisplayPrompt");
     }
 
-    public virtual void start()
+    protected abstract void doActivity();
+
+    public void start()
     {
+        displayStartingMessage();
+        doActivity();
+        displayEndingMessage();
     }
 
 }

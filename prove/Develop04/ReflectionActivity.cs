@@ -5,24 +5,45 @@ public class ReflectionActivity : Activity
         "Think of a time when you stood up for someone else.",
         "Think of a time when you did something really difficult.",
         "Think of a time when you helped someone in need.",
-        "Think of a time when you did something truly selfless."
+        "Think of a time when you did something truly selfless.",
+        "Think of a time when you learned a valuable lesson.",
+        "Think of a time when you felt truly proud of yourself.",
+        "Think of a time when you overcame fear.",
+        "Think of a time when you made a difference in someone's life.",
+        "Think of a time when you showed kindness to a stranger.",
+        "Think of a time when you faced a tough decision.",
+        "Think of a time when you achieved something unexpected.",
+        "Think of a time when you embraced change.",
+        "Think of a time when you supported someone during a difficult time.",
+        "Think of a time when you felt connected to something bigger than yourself.",
+        "Think of a time when you helped a team succeed."
 
     };
     private List<string> _questions = new List<string>()
     {
         "Why was this experience meaningful to you?",
         "How did you feel when it was complete?",
-        "What did you learn about yourself through this experience?"
+        "What did you learn about yourself through this experience?",
+        "How did this experience change your perspective?",
+        "What strengths did you discover in yourself during this experience?",
+        "What challenges did you face and how did you overcome them?",
+        "What would you have done differently, if anything?",
+        "How did this experience affect your relationships with others?",
+        "What emotions did you experience during this time?",
+        "What did this experience teach you about resilience?",
+        "How did you grow as a person from this experience?",
+        "What would you tell someone going through something similar?",
+        "What impact do you think this experience had on others?",
+        "How do you feel about your role in this situation now?",
+        "What part of this experience are you most grateful for?"
     };
     
     public  ReflectionActivity() : base("Reflection Activity", "This activity will help you reflect on meaningful experiences.")
     {
     }
 
-     public void startReflection()
+    protected override void doActivity()
     {
-        displayStartingMessage();
-
         // Display a random prompt
         Random random = new Random();
         int promptIndex = random.Next(_prompts.Count);
@@ -39,8 +60,6 @@ public class ReflectionActivity : Activity
 
             timeElapsed += 5;
         }
-
-        displayEndingMessage();
     }
 
     public void displayQuestion()
@@ -51,9 +70,5 @@ public class ReflectionActivity : Activity
         pauseAnimation(3);
     }
 
-    public override void start()
-    {
-        startReflection();
-    }
 
 }
