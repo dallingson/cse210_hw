@@ -10,28 +10,18 @@ class Scripture
         _words = text.Split(' ').Select(word => new Word(word)).ToList();
     }
 
-    public static Scripture ParseFromLine(string line)
-    {
-        var parts = line.Split(" - ");
-        if (parts.Length == 2)
-        {
-            var reference = Reference.ParseFromText(parts[0]);
-            var scriptureText = parts[1].Trim('"');
-
-            if (reference != null)
-            {
-                return new Scripture(reference, scriptureText);
-            }
-        }
-        return null;
-    }
-
     public void HideWords()
     {
+        // Get a list of visible words
         List<Word> visibleWords = _words.Where(w => !w.IsHidden()).ToList();
+
+        // Always hide at least one word, even when only one remains
         int wordsToHide = Math.Max(1, visibleWords.Count / 4);
+        
+        // Ensure that if only one word remains, it gets hidden
         wordsToHide = Math.Min(wordsToHide, visibleWords.Count);
 
+        // Shuffle and hide random words
         for (int i = 0; i < wordsToHide; i++)
         {
             int index = _random.Next(visibleWords.Count);
@@ -39,6 +29,8 @@ class Scripture
             visibleWords.RemoveAt(index);
         }
     }
+
+
 
     public string GetRenderedText()
     {

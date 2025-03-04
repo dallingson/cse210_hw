@@ -26,11 +26,6 @@ class Word
 
     public string GetRenderedText()
     {
-            if(_isHidden)
-            {
-                return new string ('_', _value.Length);
-            }
-            else
-            return _value;
+        return _isHidden ? "____" : _value;
     }
 }
