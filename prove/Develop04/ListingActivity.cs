@@ -55,7 +55,6 @@ public class ListingActivity : Activity
     public void displayResponses()
     {
         Console.WriteLine("Here are the items you listed:");
-        Console.WriteLine("");
         foreach (string response in _responses)
         {
             Console.WriteLine("- " + response);
