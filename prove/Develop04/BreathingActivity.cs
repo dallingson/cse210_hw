@@ -75,9 +75,5 @@ public class BreathingActivity : Activity
         Console.Write("             ");
     }
 
-    public void alternateAnimation()
-    {
-    }
-
 }
 
