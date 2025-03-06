@@ -2,21 +2,19 @@ using System.Runtime.CompilerServices;
 
 public class BreathingActivity : Activity
 {
-    public BreathingActivity() : base("Breathing","This activity will help you relax by guiding your breathing.")
+    public BreathingActivity() : base("Breathing", "This activity will help you relax by guiding your breathing.")
     {
     }
 
-     protected override void doActivity()
+    public new void doActivity()
     {
         int timeElapsed = 0;
         while (timeElapsed < _duration)
         {
             Console.Clear();
             Console.WriteLine("Square Breathing:");
-
-            squareBreathingAnimation(4);  // 4 seconds for each side of the square
-
-            timeElapsed += 16;  // 4 sides × 4 seconds each
+            squareBreathingAnimation(4);
+            timeElapsed += 16;
             Console.Clear();
         }
     }

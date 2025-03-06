@@ -38,26 +38,21 @@ public class ReflectionActivity : Activity
         "What part of this experience are you most grateful for?"
     };
     
-    public  ReflectionActivity() : base("Reflection Activity", "This activity will help you reflect on meaningful experiences.")
+    public ReflectionActivity() : base("Reflection", "This activity will help you reflect on meaningful experiences.")
     {
     }
 
-    protected override void doActivity()
+    public new void doActivity()
     {
-        // Display a random prompt
         Random random = new Random();
-        int promptIndex = random.Next(_prompts.Count);
-        Console.WriteLine(_prompts[promptIndex]);
+        Console.WriteLine(_prompts[random.Next(_prompts.Count)]);
         pauseAnimation(5);
-
+        
         int timeElapsed = 0;
         while (timeElapsed < _duration)
         {
-            // Display a random question
-            int questionIndex = random.Next(_questions.Count);
-            Console.WriteLine(_questions[questionIndex]);
+            Console.WriteLine(_questions[random.Next(_questions.Count)]);
             pauseAnimation(5);
-
             timeElapsed += 5;
         }
     }
