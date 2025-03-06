@@ -31,7 +31,7 @@ public class ListingActivity : Activity
     {
     }
 
-    protected new void doActivity()
+    protected override void doActivity()
     {
         Random random = new Random();
         string prompt = _prompts[random.Next(_prompts.Count)];

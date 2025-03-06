@@ -1,4 +1,6 @@
-public class Activity
+using System.Runtime.CompilerServices;
+
+public abstract class Activity
 {
     protected int _duration;
     protected string _description;
@@ -12,7 +14,7 @@ public class Activity
 
     public void setDuration(int duration)
     {
-        _duration = duration;
+         _duration = duration;
     }
 
     public void displayStartingMessage()
@@ -29,6 +31,7 @@ public class Activity
         Console.WriteLine($"You spent {_duration} seconds on this activity.");
         Console.WriteLine(" ");
         pauseAnimation(3);
+
     }
 
     protected void pauseAnimation(int seconds)
@@ -53,6 +56,13 @@ public class Activity
         }
     }
 
+    public void displayPrompt()
+    {
+        Console.WriteLine("DisplayPrompt");
+    }
+
+    protected abstract void doActivity();
+
     public void start()
     {
         displayStartingMessage();
@@ -60,8 +70,4 @@ public class Activity
         displayEndingMessage();
     }
 
-    public void doActivity()
-    {
-        Console.WriteLine("Default activity");
-    }
 }
