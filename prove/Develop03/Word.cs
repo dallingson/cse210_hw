@@ -35,5 +35,6 @@ class Word
         {
             return _value;
         }
+
     }
 }

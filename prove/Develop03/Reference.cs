@@ -2,10 +2,11 @@ using System;
 
 class Reference
 {
-    public string _book { get; private set; }
-    public int _chapter { get; private set; }
-    public int _startVerse { get; private set; }
-    public int _endVerse { get; private set; }
+
+    private string _book;
+    private int _chapter;
+    private int _startVerse;
+    private int _endVerse;
 
     public Reference(string book, int chapter, int startVerse, int endVerse)
     {
@@ -14,7 +15,6 @@ class Reference
         _startVerse = startVerse;
         _endVerse = endVerse;
     }
-
     public static Reference ParseFromText(string referenceText)
     {
         var referenceParts = referenceText.Split(':');

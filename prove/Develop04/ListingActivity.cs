@@ -27,15 +27,20 @@ public class ListingActivity : Activity
         "What are things that make you feel energized and motivated?"
     };
 
-    public ListingActivity() : base("Listing Activity", "This activity helps you list positive things.")
+    public ListingActivity() : base("Listing", "This activity helps you list positive things.")
     {
     }
 
-    protected override void doActivity()
+    public void Run()
     {
+        Console.Clear();
+        Console.Write("Enter the duration of the activity in seconds: ");
+        int duration = int.Parse(Console.ReadLine());
+        setDuration(duration);
+        displayStartMessage();
+
         Random random = new Random();
-        string prompt = _prompts[random.Next(_prompts.Count)];
-        Console.WriteLine(prompt);
+        Console.WriteLine(_prompts[random.Next(_prompts.Count)]);
         pauseAnimation(2);
 
         Console.WriteLine("Start listing items now:");
@@ -47,25 +52,10 @@ public class ListingActivity : Activity
             string response = Console.ReadLine();
             _responses.Add(response);
         }
-
-        displayResponses();
-        Console.WriteLine($"You listed {countItems()} items.");
-    }
-
-    public void displayResponses()
-    {
-        Console.WriteLine("Here are the items you listed:");
-        Console.WriteLine("");
-        foreach (string response in _responses)
-        {
-            Console.WriteLine("- " + response);
-            Console.WriteLine("");
-        }
-    }
-
-    public int countItems()
-    {
-        return _responses.Count;
+        
+        Console.Clear();
+        Console.WriteLine($"You listed {_responses.Count} items.");
+        displayEndMessage();
     }
 
 }
