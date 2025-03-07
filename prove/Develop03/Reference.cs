@@ -2,17 +2,17 @@ using System;
 
 class Reference
 {
-    public string Book { get; private set; }
-    public int Chapter { get; private set; }
-    public int StartVerse { get; private set; }
-    public int EndVerse { get; private set; }
+    public string _book { get; private set; }
+    public int _chapter { get; private set; }
+    public int _startVerse { get; private set; }
+    public int _endVerse { get; private set; }
 
     public Reference(string book, int chapter, int startVerse, int endVerse)
     {
-        Book = book;
-        Chapter = chapter;
-        StartVerse = startVerse;
-        EndVerse = endVerse;
+        _book = book;
+        _chapter = chapter;
+        _startVerse = startVerse;
+        _endVerse = endVerse;
     }
 
     public static Reference ParseFromText(string referenceText)
@@ -42,9 +42,9 @@ class Reference
 
     public string GetFullReference()
     {
-        if (StartVerse == EndVerse)
-            return $"{Book} {Chapter}:{StartVerse}";
+        if (_startVerse == _endVerse)
+            return $"{_book} {_chapter}:{_startVerse}";
         else
-            return $"{Book} {Chapter}:{StartVerse}-{EndVerse}";
+            return $"{_book} {_chapter}:{_startVerse}-{_endVerse}";
     }
 }
