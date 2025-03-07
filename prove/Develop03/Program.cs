@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 class Program
 {
@@ -12,6 +11,7 @@ class Program
     }
 
     private Scripture _scripture;
+    private List<Scripture> _scriptureLibrary;
 
     public Program()
     {
@@ -22,15 +22,15 @@ class Program
     public void Run()
     {
         Console.Clear();
-        Console.WriteLine("Welcome to the Scripture Memorization Program!");
+        Console.WriteLine("Welcome to the Scripture Memorizer Tool!");
         DisplayOptions();
 
-        while (!_scripture.IsCompletelyHidden())
+        while (true)
         {
             Console.Clear();
             Console.WriteLine(_scripture.GetRenderedText());
             Console.WriteLine("\nPress Enter to hide more words, or type 'quit' to exit.");
-            
+
             string input = Console.ReadLine();
             if (input.ToLower() == "quit")
                 break;

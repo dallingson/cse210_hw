@@ -14,11 +14,6 @@ class Word
         _isHidden = true;
     }
 
-    public void ShowWord()
-    {
-        _isHidden = false;
-    }
-
     public bool IsHidden()
     {
         return _isHidden;
@@ -26,11 +21,6 @@ class Word
 
     public string GetRenderedText()
     {
-            if(_isHidden)
-            {
-                return new string ('_', _value.Length);
-            }
-            else
-            return _value;
+        return _isHidden ? "____" : _value;
     }
 }
