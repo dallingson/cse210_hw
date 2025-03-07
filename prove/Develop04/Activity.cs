@@ -1,12 +1,10 @@
-using System.Runtime.CompilerServices;
-
-public abstract class Activity
+public class Activity
 {
     protected int _duration;
     protected string _description;
     protected string _name;
 
-    public Activity(string name, string description) 
+    public Activity(string name, string description)
     {
         _name = name;
         _description = description;
@@ -14,25 +12,20 @@ public abstract class Activity
 
     public void setDuration(int duration)
     {
-         _duration = duration;
+        _duration = duration;
     }
 
-    public void displayStartingMessage()
-    {
-        Console.WriteLine($"Starting {_name} activity...");
+    public void displayStartMessage()
+      {
+        Console.WriteLine($"Starting {_name} Activity");
         Console.WriteLine(_description);
         pauseAnimation(3);
-    }
+      }
+    public void displayEndMessage()
+      {
+        Console.WriteLine("Good Job! You have completed the activity!");
+      }
 
-    public void displayEndingMessage()
-    {
-        Console.WriteLine(" ");
-        Console.WriteLine("Good job! You have completed the activity.");
-        Console.WriteLine($"You spent {_duration} seconds on this activity.");
-        Console.WriteLine(" ");
-        pauseAnimation(3);
-
-    }
 
     protected void pauseAnimation(int seconds)
     {
@@ -55,19 +48,4 @@ public abstract class Activity
             Console.Write("\b");
         }
     }
-
-    public void displayPrompt()
-    {
-        Console.WriteLine("DisplayPrompt");
-    }
-
-    protected abstract void doActivity();
-
-    public void start()
-    {
-        displayStartingMessage();
-        doActivity();
-        displayEndingMessage();
-    }
-
 }
