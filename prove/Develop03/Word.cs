@@ -26,6 +26,15 @@ class Word
 
     public string GetRenderedText()
     {
-        return _isHidden ? "____" : _value;
+        if (_isHidden)
+        {
+            // Return underscores equal to the number of letters in the word
+            return new string('_', _value.Length);
+        }
+        else
+        {
+            return _value;
+        }
+
     }
 }
