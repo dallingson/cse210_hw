@@ -8,7 +8,7 @@ public class SimpleGoal : Goal
         _isComplete = isComplete;
     }
 
-    public override int RecordEvent()
+    public override int recordEvent()
     {
         if (!_isComplete)
         {
@@ -18,7 +18,7 @@ public class SimpleGoal : Goal
         return 0;
     }
 
-    public override string GetStatus() => $"[{(_isComplete ? "X" : " ")}] {_name} - {_description}";
+    public override string getStatus() => $"[{(_isComplete ? "X" : " ")}] {_name} - {_description}";
 
-    public override string FormatForSave() => $"Simple|{_name}|{_description}|{_points}|{_isComplete}";
+    public override string formatForSave() => $"Simple|{_name}|{_description}|{_points}|{_isComplete}";
 }

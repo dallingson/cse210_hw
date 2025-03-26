@@ -1,9 +1,9 @@
-abstract class Item
+public class Item
 {
     
-    private string _name;
-    private int _quantity;
-    private decimal _price;
+    protected string _name;
+    protected int _quantity;
+    protected decimal _price;
 
     public Item(string name, int quantity, decimal price)
     {
@@ -12,8 +12,8 @@ abstract class Item
         _price = price;
     }
 
-    public string getInfo()
+    public virtual string getInfo()
     {
-        return
+        return $"{_name}: {_quantity} units at ${_price} each";
     }
 }

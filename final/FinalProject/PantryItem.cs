@@ -11,11 +11,15 @@ public class PantryItem : Item
 
     public bool isExpired()
     {
-        return false;
+        return DateOnly.FromDateTime(DateTime.Now) > _expirationDate;
     }
 
-    public override getInfo()
+    public void useItem(int amount)
     {
-        
+        _quantity = Math.Max(0, _quantity - amount);
+    }
+        public override string getInfo()
+    {
+        return base.getInfo() + $"| Expiraton: {_expirationDate}";
     }
 }
