@@ -1,4 +1,4 @@
-abstract class ItemList
+public abstract class ItemList
 {
     List<Item> _items;
 
