@@ -1,15 +1,20 @@
-// Derived class for non-perishable items (items that have expiration dates but typically last longer)
 public class NonPerishableItem : Item
 {
-    // Constructor to initialize a non-perishable item
-    public NonPerishableItem(string name, int quantity, decimal price, string category, DateOnly expirationDate)
-        : base(name, quantity, price, category, expirationDate)
+    public NonPerishableItem(string name, int quantity, decimal price, bool isInPantry = false, DateOnly? expirationDate = null)
+        : base(name, quantity, price,  isInPantry, expirationDate)
+    { }
+
+    public override void WarnAboutExpiration()
     {
+        if (_expirationDate.HasValue)
+        {
+            Console.WriteLine($"Warning: {GetName()} is a non-perishable item, but still has an expiration date of {_expirationDate.Value.ToString("yyyy-MM-dd")}. Please check!");
+        }
+        else
+        {
+            Console.WriteLine($"{GetName()} is non-perishable and does not have an expiration date.");
+        }
     }
 
-    // Method to get information about the non-perishable item
-    public new string GetInfo()
-    {
-        return base.GetInfo();
-    }
+    private string GetName() => base.GetInfo(); // For simplicity, we use GetInfo() for name here
 }

@@ -1,26 +1,29 @@
-// Base class representing a generic item in the grocery list or pantry
 public class Item
 {
     private string _name;
     private int _quantity;
     private decimal _price;
-    private string _category;
-    private DateOnly? _expirationDate; // Nullable expiration date
+    private bool _isInPantry;
+    protected DateOnly? _expirationDate;
 
-    // Constructor to initialize an item with the required details
-    public Item(string name, int quantity, decimal price, string category, DateOnly? expirationDate = null)
+    public Item(string name, int quantity, decimal price, bool isInPantry = false, DateOnly? expirationDate = null)
     {
         _name = name;
         _quantity = quantity;
         _price = price;
-        _category = category;
+        _isInPantry = isInPantry;
         _expirationDate = expirationDate;
     }
 
-    // Method to get information about the item
+    public virtual void WarnAboutExpiration()
+    {
+        // Default behavior for items that don't have specific expiration warnings
+        Console.WriteLine($"{_name} has no expiration warning.");
+    }
+
     public string GetInfo()
     {
-        string info = $"{_name} ({_category}): {_quantity} units at ${_price} each";
+        string info = $"{_name} : {_quantity} units at ${_price} each | In Pantry: {_isInPantry}";
         if (_expirationDate.HasValue)
         {
             info += $" | Expiration: {_expirationDate.Value}";
@@ -28,21 +31,25 @@ public class Item
         return info;
     }
 
-    // Method to use a specified amount of the item (reduces the quantity)
-    public void UseItem(int amount)
+    public virtual string ToCsv()
     {
-        _quantity = Math.Max(0, _quantity - amount);
+        // If expirationDate is not null, include it in the CSV
+        return $"{_name},{_quantity},{_price},{_expirationDate?.ToString("yyyy-MM-dd") ?? ""}";
     }
 
-    // Method to check if the item has expired
+    public void MoveToPantry()
+    {
+        _isInPantry = true;
+    }
+
     public bool IsExpired()
     {
         return _expirationDate.HasValue && DateOnly.FromDateTime(DateTime.Now) > _expirationDate.Value;
     }
 
-    // Method to check if the item is about to expire (within 3 days)
     public bool IsAboutToExpire()
     {
         return _expirationDate.HasValue && DateOnly.FromDateTime(DateTime.Now).AddDays(3) >= _expirationDate.Value;
     }
+
 }
