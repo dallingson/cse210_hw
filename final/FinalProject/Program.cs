@@ -20,12 +20,13 @@ public class Program
             Console.WriteLine("\nShelf Stocker Menu:");
             Console.WriteLine("1. Add item to grocery list");
             Console.WriteLine("2. Move item to storage");
-            Console.WriteLine("3. Move item back to grocery list");
-            Console.WriteLine("4. View grocery list");
-            Console.WriteLine("5. View pantry items");
-            Console.WriteLine("6. View fridge items");
-            Console.WriteLine("7. View freezer items");
-            Console.WriteLine("8. Save and Exit");
+            Console.WriteLine("3. View grocery list");
+            Console.WriteLine("4. View pantry items");
+            Console.WriteLine("5. View fridge items");
+            Console.WriteLine("6. View freezer items");
+            Console.WriteLine("7. Remove item from storage");
+            Console.WriteLine("8. View items expiring soon");
+            Console.WriteLine("9. Save and Exit");
             Console.Write("Choose an option: ");
             string choice = Console.ReadLine();
 
@@ -38,21 +39,24 @@ public class Program
                     MoveItemToStorage(groceryList, pantry, fridge, freezer, itemMover);
                     break;
                 case "3":
-                    MoveItemBackToGroceryList(groceryList, pantry, fridge, freezer, itemMover);
-                    break;
-                case "4":
                     ViewGroceryList(groceryList);
                     break;
-                case "5":
+                case "4":
                     ViewStorageItems(pantry);
                     break;
-                case "6":
+                case "5":
                     ViewStorageItems(fridge);
                     break;
-                case "7":
+                case "6":
                     ViewStorageItems(freezer);
                     break;
+                case "7":
+                    RemoveItemFromStorage(pantry, fridge, freezer);
+                    break;
                 case "8":
+                    ViewExpiringItems(pantry, fridge, freezer);
+                    break;
+                case "9":
                     fileManager.SaveData(groceryList, pantry, fridge, freezer);
                     Console.WriteLine("Data saved. Exiting...");
                     return;
@@ -102,29 +106,25 @@ public class Program
 
     static void MoveItemToStorage(GroceryList groceryList, Pantry pantry, Fridge fridge, Freezer freezer, ItemMover itemMover)
     {
-        // View items in the grocery list
         Console.Clear();
-        ViewGroceryList(groceryList); // Shows the grocery list
-        Console.WriteLine("Choose item to move to storage.");
+        ViewGroceryList(groceryList);
+        Console.WriteLine("Choose item to move to storage:");
         string itemName = Console.ReadLine();
 
-        // Ask the user which storage they want to move to
         Console.WriteLine("Choose storage area: 1. Pantry 2. Fridge 3. Freezer");
         string storageChoice = Console.ReadLine();
 
-        // Choose the storage based on user input
-        Storage selectedStorage = storageChoice switch
+        string storageType = storageChoice switch
         {
-            "1" => pantry, 
-            "2" => fridge,  
-            "3" => freezer, 
-            _ => null 
+            "1" => "pantry",
+            "2" => "fridge",
+            "3" => "freezer",
+            _ => null
         };
 
-        if (selectedStorage != null)
+        if (storageType != null)
         {
-            // Attempt to move the item
-            bool success = itemMover.MoveItem(groceryList, pantry, fridge, freezer, itemName, storageChoice.ToLower());
+            bool success = itemMover.MoveItem(groceryList, pantry, fridge, freezer, itemName, storageType);
             if (!success)
             {
                 Console.WriteLine($"Item '{itemName}' not found in grocery list.");
@@ -136,18 +136,77 @@ public class Program
         }
     }
 
-
-
-    static void MoveItemBackToGroceryList(GroceryList groceryList, Pantry pantry, Fridge fridge, Freezer freezer, ItemMover itemMover)
+    static void RemoveItemFromStorage(Pantry pantry, Fridge fridge, Freezer freezer)
     {
         Console.Clear();
-        Console.Write("Enter item name to move back to grocery list: ");
+
+        Console.WriteLine("Choose storage area to remove from:");
+        Console.WriteLine("1. Pantry");
+        Console.WriteLine("2. Fridge");
+        Console.WriteLine("3. Freezer");
+        Console.Write("Enter your choice: ");
+        string choice = Console.ReadLine();
+
+        Storage selectedStorage = choice switch
+        {
+            "1" => pantry,
+            "2" => fridge,
+            "3" => freezer,
+            _ => null
+        };
+
+        if (selectedStorage == null)
+        {
+            Console.WriteLine("Invalid storage choice.");
+            return;
+        }
+
+        Console.WriteLine($"\n{selectedStorage.GetType().Name} Items:");
+        selectedStorage.DisplayStorage();
+
+        Console.Write("\nEnter item name to remove: ");
         string itemName = Console.ReadLine();
 
-        bool success = itemMover.MoveItemBackToGroceryList(groceryList, pantry, fridge, freezer, itemName);
-        if (!success)
+        bool removed = selectedStorage.RemoveItem(itemName);
+
+        if (removed)
         {
-            Console.WriteLine($"Item '{itemName}' not found in storage.");
+            Console.WriteLine($"Item '{itemName}' removed from {selectedStorage.GetType().Name}.");
+        }
+        else
+        {
+            Console.WriteLine($"Item '{itemName}' not found in {selectedStorage.GetType().Name}.");
         }
     }
+
+    
+    static void ViewExpiringItems(Pantry pantry, Fridge fridge, Freezer freezer)
+    {
+        Console.Clear();
+        Console.WriteLine("Items Expiring Soon (within 7 days):\n");
+
+        DisplayExpiringFromStorage(pantry);
+        DisplayExpiringFromStorage(fridge);
+        DisplayExpiringFromStorage(freezer);
+    }
+
+    static void DisplayExpiringFromStorage(Storage storage)
+    {
+        var expiringItems = storage.GetExpiringItems();
+        if (expiringItems.Any())
+        {
+            Console.WriteLine($"{storage.GetType().Name}:");
+            foreach (var item in expiringItems)
+            {
+                Console.WriteLine(item.GetInfo());
+            }
+            Console.WriteLine();
+        }
+        else
+        {
+            Console.WriteLine($"{storage.GetType().Name}: No items expiring soon.\n");
+        }
+    }
+
+
 }
