@@ -87,7 +87,7 @@ public class Program
     {
         Console.Clear();
         Console.WriteLine("Grocery List:");
-        foreach (var item in groceryList.Items)
+        foreach (var item in groceryList._items)
         {
             Console.WriteLine(item.GetInfo());
         }
