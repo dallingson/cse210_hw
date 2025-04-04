@@ -5,13 +5,14 @@ public class ItemMover
 {
     public bool MoveItem(GroceryList groceryList, Pantry pantry, Fridge fridge, Freezer freezer, string itemName, string storageType)
     {
-        FoodItem item = groceryList._items.FirstOrDefault(i => i._name.Equals(itemName, StringComparison.OrdinalIgnoreCase));
+        // Using getters to access the _items list
+        FoodItem item = groceryList.GetItems().FirstOrDefault(i => i.GetName().Equals(itemName, StringComparison.OrdinalIgnoreCase));
 
         if (item != null)
         {
             groceryList.RemoveItem(item);
             AddToStorage(item, pantry, fridge, freezer, storageType);
-            Console.WriteLine($"Moved {item._name} to {storageType}.");
+            Console.WriteLine($"Moved {item.GetName()} to {storageType}.");
             return true;
         }
 
@@ -39,15 +40,16 @@ public class ItemMover
 
     public bool MoveItemBackToGroceryList(GroceryList groceryList, Pantry pantry, Fridge fridge, Freezer freezer, string itemName)
     {
-        FoodItem item = pantry._items.FirstOrDefault(i => i._name.Equals(itemName, StringComparison.OrdinalIgnoreCase)) ??
-                        fridge._items.FirstOrDefault(i => i._name.Equals(itemName, StringComparison.OrdinalIgnoreCase)) ??
-                        freezer._items.FirstOrDefault(i => i._name.Equals(itemName, StringComparison.OrdinalIgnoreCase));
+        // Using getters to access the _items list in pantry, fridge, and freezer
+        FoodItem item = pantry.GetItems().FirstOrDefault(i => i.GetName().Equals(itemName, StringComparison.OrdinalIgnoreCase)) ??
+                        fridge.GetItems().FirstOrDefault(i => i.GetName().Equals(itemName, StringComparison.OrdinalIgnoreCase)) ??
+                        freezer.GetItems().FirstOrDefault(i => i.GetName().Equals(itemName, StringComparison.OrdinalIgnoreCase));
 
         if (item != null)
         {
             RemoveFromStorage(item, pantry, fridge, freezer);
             groceryList.AddItem(item);
-            Console.WriteLine($"Moved {item._name} back to grocery list.");
+            Console.WriteLine($"Moved {item.GetName()} back to grocery list.");
             return true;
         }
 
@@ -56,8 +58,8 @@ public class ItemMover
 
     private void RemoveFromStorage(FoodItem item, Pantry pantry, Fridge fridge, Freezer freezer)
     {
-        pantry.RemoveItem(item._name);
-        fridge.RemoveItem(item._name);
-        freezer.RemoveItem(item._name);
+        pantry.RemoveItem(item.GetName());
+        fridge.RemoveItem(item.GetName());
+        freezer.RemoveItem(item.GetName());
     }
 }

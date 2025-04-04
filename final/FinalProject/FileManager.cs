@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 public class FileManager
@@ -12,20 +11,20 @@ public class FileManager
 
     public void SaveData(GroceryList groceryList, Pantry pantry, Fridge fridge, Freezer freezer)
     {
-        SaveToCsv(groceryList._items, GroceryListFile);
-        SaveToCsv(pantry._items, PantryFile);
-        SaveToCsv(fridge._items, FridgeFile);
-        SaveToCsv(freezer._items, FreezerFile);
+        SaveToCsv(groceryList.GetItems(), GroceryListFile);
+        SaveToCsv(pantry.GetItems(), PantryFile);
+        SaveToCsv(fridge.GetItems(), FridgeFile);
+        SaveToCsv(freezer.GetItems(), FreezerFile);
 
         Console.WriteLine("Data has been saved.");
     }
 
     public void LoadData(GroceryList groceryList, Pantry pantry, Fridge fridge, Freezer freezer)
     {
-        groceryList._items = LoadFromCsv(GroceryListFile);
-        pantry._items = LoadFromCsv(PantryFile);
-        fridge._items = LoadFromCsv(FridgeFile);
-        freezer._items = LoadFromCsv(FreezerFile);
+        groceryList.SetItems(LoadFromCsv(GroceryListFile));
+        pantry.SetItems(LoadFromCsv(PantryFile));
+        fridge.SetItems(LoadFromCsv(FridgeFile));
+        freezer.SetItems(LoadFromCsv(FreezerFile));
 
         Console.WriteLine("Data has been loaded.");
     }
@@ -36,8 +35,8 @@ public class FileManager
         {
             foreach (var item in items)
             {
-                string expirationDate = item._expirationDate?.ToString("yyyy-MM-dd") ?? "";
-                writer.WriteLine($"{item._name},{item._price},{expirationDate}");
+                string expirationDate = item.GetExpirationDate()?.ToString("yyyy-MM-dd") ?? "";
+                writer.WriteLine($"{item.GetName()},{item.GetPrice()},{expirationDate}");
             }
         }
     }
@@ -64,5 +63,5 @@ public class FileManager
         }
 
         return items;
-}
+    }
 }

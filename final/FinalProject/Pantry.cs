@@ -1,15 +1,13 @@
 public class Pantry : Storage
 {
-    public Pantry() : base("Pantry", new List<FoodItem>())
-    {
-    }
+    public Pantry() : base("Pantry", new List<FoodItem>()) { }
 
     public override void DisplayStorage()
     {
-        Console.WriteLine($"Items in {_name}:");
-        foreach (var item in _items)  
+        Console.WriteLine($"Items in {GetName()}:");
+        foreach (var item in GetItems())
         {
-            Console.WriteLine($"{item._name} - ${item._price} (Expires: {item._expirationDate})");  
+            Console.WriteLine($"{item.GetName()} - ${item.GetPrice()} (Expires: {item.GetExpirationDate()})");
         }
     }
 }

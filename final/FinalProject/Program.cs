@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+
 public class Program
 {
     static void Main()
@@ -75,8 +78,6 @@ public class Program
         Console.Clear();
         Console.Write("Enter item name: ");
         string name = Console.ReadLine();
-        Console.Write("Enter quantity: ");
-        int quantity = int.Parse(Console.ReadLine());
         Console.Write("Enter price: ");
         decimal price = decimal.Parse(Console.ReadLine());
         Console.Write("Enter expiration date (YYYY-MM-DD) or leave blank: ");
@@ -91,7 +92,7 @@ public class Program
     {
         Console.Clear();
         Console.WriteLine("Grocery List:");
-        foreach (var item in groceryList._items)
+        foreach (var item in groceryList.GetItems())
         {
             Console.WriteLine(item.GetInfo());
         }
@@ -179,7 +180,6 @@ public class Program
         }
     }
 
-    
     static void ViewExpiringItems(Pantry pantry, Fridge fridge, Freezer freezer)
     {
         Console.Clear();
@@ -207,6 +207,4 @@ public class Program
             Console.WriteLine($"{storage.GetType().Name}: No items expiring soon.\n");
         }
     }
-
-
 }
