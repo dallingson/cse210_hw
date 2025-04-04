@@ -1,19 +1,15 @@
-public class Pantry
+public class Pantry : Storage
 {
-    public List<Item> Items { get; private set; } = new List<Item>();
-
-    public void AddItem(Item item)
+    public Pantry() : base("Pantry", new List<FoodItem>())
     {
-        Items.Add(item);
     }
 
-    public List<Item> GetExpiringItems()
+    public override void DisplayStorage()
     {
-        return Items.FindAll(item => item.IsExpired());
-    }
-
-    public List<Item> GetAboutToExpireItems()
-    {
-        return Items.FindAll(item => item.IsAboutToExpire());
+        Console.WriteLine($"Items in {_name}:");
+        foreach (var item in _items)  
+        {
+            Console.WriteLine($"{item._name} - ${item._price} (Expires: {item._expirationDate})");  
+        }
     }
 }

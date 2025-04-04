@@ -1,9 +1,19 @@
 public class GroceryList
 {
-    public List<Item> Items { get; private set; } = new List<Item>();
+    public List<FoodItem> _items;
 
-    public void AddItem(Item item)
+    public GroceryList()
     {
-        Items.Add(item);
+        _items = new List<FoodItem>();
+    }
+
+    public void AddItem(FoodItem item)
+    {
+        _items.Add(item);
+    }
+
+    public void RemoveItem(FoodItem item)
+    {
+        _items.Remove(item);
     }
 }
